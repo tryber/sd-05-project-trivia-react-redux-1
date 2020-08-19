@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resolverToken as token } from './redux/actions';
 import logo from './trivia.png';
 import './App.css';
-import PropTypes from 'prop-types';
 
 class App extends React.Component {
 
@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 App.PropTypes = {
-  getToken: PropTypes.func,
+  getToken: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
