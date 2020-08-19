@@ -36,6 +36,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.PropTypes = {
   getToken: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
