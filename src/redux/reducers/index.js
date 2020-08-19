@@ -1,26 +1,8 @@
-import {RECEBER_TOKEN, RECEBER_TOKEN_SUCCESS} from '../actions';
+import { combineReducers } from 'redux';
+import tokenReducer from './tokenReducer';
 
-const INITIAL_STATE = {
-  token: {},
-  isFetching: false,
-}
+const reducers = combineReducers({
+  token: tokenReducer,
+})
 
-const reducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
-    case RECEBER_TOKEN:
-      return {
-        ...state,
-        isFetching: true
-      };
-      case RECEBER_TOKEN_SUCCESS:
-      return {
-        ...state,
-        token: action.payload,
-        isFetching: false
-      };
-    default:
-      return state;
-  }
-};
-
-export default reducer;
+export default reducers;

@@ -27,7 +27,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  token: state.reducer
+  token: state.token.data.token
 })
 
 const mapDispatchToProps = (dispatch) => ({
