@@ -8,8 +8,7 @@ import './App.css';
 class App extends React.Component {
 
   componentDidMount() {
-    const { getToken } = this.props;
-    getToken();
+    this.props.getToken();
   }
 
   render() {
