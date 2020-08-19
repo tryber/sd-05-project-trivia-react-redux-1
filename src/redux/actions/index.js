@@ -15,5 +15,5 @@ export const actionReceberTokenSuccess = (payload) => ({
 export const resolverToken = () => (dispatch) => {
   dispatch(actionReceberToken());
   return apiToken()
-  .then((token) => dispatch(actionReceberTokenSuccess(token)))
+  .then((token) => dispatch(actionReceberTokenSuccess(token)));
 };

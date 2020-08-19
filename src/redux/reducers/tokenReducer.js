@@ -1,22 +1,22 @@
-import {RECEBER_TOKEN, RECEBER_TOKEN_SUCCESS} from '../actions';
+import { RECEBER_TOKEN, RECEBER_TOKEN_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   data: {},
   isFetching: false,
-}
+};
 
 const reducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEBER_TOKEN:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
-      case RECEBER_TOKEN_SUCCESS:
+    case RECEBER_TOKEN_SUCCESS:
       return {
         ...state,
         data: action.payload,
-        isFetching: false
+        isFetching: false,
       };
     default:
       return state;

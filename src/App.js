@@ -1,37 +1,41 @@
 import React from 'react';
-import logo from './trivia.png';
-import './App.css';
 import { connect } from 'react-redux';
 import { resolverToken as token } from './redux/actions';
+import logo from './trivia.png';
+import './App.css';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
 
   componentDidMount() {
     const { getToken } = this.props;
-    console.log(getToken())
+    getToken();
   }
 
-  render () {
-    const { token } = this.props;
+  render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            {token}
+            Sua vez
           </p>
         </header>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  token: state.token.data.token
-})
+  token: state.token.data.token,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getToken: () => dispatch(token()),
 });
+
+App.PropTypes = {
+  getToken: PropTypes.func,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

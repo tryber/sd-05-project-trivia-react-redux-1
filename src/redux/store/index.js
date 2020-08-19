@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 import reducers from '../reducers';
 
 const store = createStore(
-  reducers, 
+  reducers,
   compose(
     applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : (f) => f)
+    window.devToolsExtension ? window.devToolsExtension() : (f) => f),
   );
 
-  export default store;
+export default store;
