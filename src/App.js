@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   getToken: () => dispatch(token()),
 });
 
-App.PropTypes = {
+App.propTypes = {
   getToken: PropTypes.func.isRequired,
 };
 
