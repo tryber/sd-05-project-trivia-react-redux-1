@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { resolverToken as token } from './redux/actions';
-import logo from './trivia.png';
 import './App.css';
+import Rotas from './routes';
 
 class App extends React.Component {
 
@@ -11,14 +12,15 @@ class App extends React.Component {
     this.props.getToken();
   }
 
+
+
   render() {
+    const { isLogged } = this.props;
     return (
       <div className="App">
+      {!isLogged && <Redirect to="/login" />}
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Sua vez
-          </p>
+          <Rotas />
         </header>
       </div>
     );
@@ -26,7 +28,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  token: state.token.data.token,
+  token: state.tokenReducer.data.token,
+  isLogged: state.loginReducer.isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,0 +1,46 @@
+.App-logo {
+  width: 200px;
+  height: 200px;
+}
+
+.trivia-game {
+  font-family: 'Russo One';
+}
+
+.box-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-login input {
+  font-family: 'Russo One';
+  font-size: 1.4rem;
+  width: 25rem;
+  padding: 2% 15px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border:0;
+}
+
+.box-login button {
+  font-family: 'Russo One';
+  font-size: 1.4rem;
+  width: 26.8rem;
+  padding: 2% 0;
+  border-radius: 8px;
+  border:0;
+}
+
+.box-login button:enabled {
+  background-color: #E86F3A;
+  color: white;
+  cursor: pointer;
+}
+
+@media (min-width: 1100px) {
+  .box-login {
+    display: grid;
+  }
+}
