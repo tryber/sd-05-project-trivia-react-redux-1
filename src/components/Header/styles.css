@@ -1,0 +1,15 @@
+.player-header-info {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #21d4d4;
+}
+
+.player-info {
+  font-family: 'Russo One';
+  font-size: 1.2rem;
+  display: flex;
+  color: white;
+  justify-content: space-around;
+  align-items: flex-end;
+}

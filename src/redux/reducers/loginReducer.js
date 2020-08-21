@@ -3,6 +3,7 @@ import { NAME, EMAIL, IS_LOGGED } from '../actions/actionLogin';
 const INITIAL_STATE = {
   name: '',
   email: '',
+  gravatar: '',
   isLogged: false,
 };
 
@@ -17,12 +18,13 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         email: action.payload,
-        };
+        gravatar: `https://www.gravatar.com/avatar/${action.gravatar}`,
+      };
     case IS_LOGGED:
       return {
         ...state,
-        isLogged: true,
-      }
+        isLogged: action.payload,
+      };
     default:
       return state;
   }
