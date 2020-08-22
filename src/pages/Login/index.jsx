@@ -7,7 +7,7 @@ import './styles.css';
 import { actionNameInput, actionEmailInput, actionIsLogged } from '../../redux/actions/actionLogin';
 
 const Login = (props) => {
-const { name, email } = props.login;
+  const { name, email } = props.login;
   return (
     <header className="app-header">
       <img src={logo} className="App-logo" alt="logo" />
@@ -49,10 +49,10 @@ const mapStateToProps = (state) => ({
 });
 
 Login.propTypes = {
-  login: PropTypes.object.isRequired,
+  login: PropTypes.object,
   isLogged: PropTypes.func.isRequired,
   aNameI: PropTypes.func.isRequired,
   aEmailI: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

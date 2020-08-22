@@ -28,10 +28,10 @@ const mapStateToProps = (state) => ({
 });
 
 Settings.propTypes = {
-  login: PropTypes.object.isRequired,
+  login: PropTypes.object,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   gravatar: PropTypes.string.isRequired,
-}
+};
 
 export default connect(mapStateToProps)(Settings);

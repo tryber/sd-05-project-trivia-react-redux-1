@@ -43,8 +43,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.propTypes = {
   getToken: PropTypes.func.isRequired,
-  token: PropTypes.string,
   isLogged: PropTypes.bool.isRequired,
 };
+
+App.defaultProps = {
+  token: ''
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

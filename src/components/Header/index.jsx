@@ -25,9 +25,9 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  login: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-  gravatar: PropTypes.string.isRequired,
+  login: PropTypes.object,
+  name: PropTypes.string,
+  gravatar: PropTypes.string,
 }
 
 export default connect(mapStateToProps)(Header);

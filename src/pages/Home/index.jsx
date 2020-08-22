@@ -24,7 +24,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  questions: state.questionsReducer,
+  questions: state.questionsReducer.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Home.propTypes = {
-  questions: PropTypes.object.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object),
   getQuestions: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

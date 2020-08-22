@@ -28,9 +28,6 @@ class Questions extends React.Component {
 
   criarPerguntas() {
     const { questions } = this.props;
-    if(!questions.results) {
-      return <h1>Loading...</h1>;
-    }
     const { index } = this.state;
 
     const shuffle = (array) => array.sort(() => Math.random() - 0.5);
@@ -78,7 +75,7 @@ const mapStateToProps = (state) => ({
 });
 
 Questions.propTypes = {
-  questions: PropTypes.object.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default connect(mapStateToProps)(Questions);
