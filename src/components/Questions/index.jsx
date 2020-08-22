@@ -26,10 +26,6 @@ class Questions extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.criarPerguntas();
-  }
-  
   criarPerguntas() {
     const { questions } = this.props;
     if(!questions.results) {
@@ -49,34 +45,27 @@ class Questions extends React.Component {
       isCorreta: false,
     }));
 
-    const allQuestions = [{...perguntasErradas}, perguntasCertas];
+    const allQuestions = [...perguntasErradas, perguntasCertas];
 
     const respostas = shuffle(allQuestions);
 
-    return this.setState(respostas);
-
+    return respostas;
   }
 
   render() {
     const { questions } = this.props;
-    const { index, respostas } = this.state;
+    const { index } = this.state;
     if(!questions.results) {
       return <h1>Loading...</h1>
     }
-    
-    
-    console.log(respostas)
-    
-    const wrong_question = questions.results[index].incorrect_answers.map((ans) => ans);
-    const right_question = questions.results[index].correct_answer;
-    const allQuestions = [...wrong_question, right_question];
-    const shuffle = (array) => array.sort(() => Math.random() - 0.5);  
-    const shuffledQuestions = shuffle(allQuestions);
+
+    const respostass = this.criarPerguntas();
+
     return ( 
       <div>
         <span data-testid="question-category">{questions.results[index].category}</span>
         <p data-testid="question-text">{questions.results[index].question}</p>
-        {shuffledQuestions.map((question) => <button>{question}</button>)}
+        {respostass.map((question) => <button className={question.isCorreta === true? 'green-border':'red-border'}>{question.pergunta}</button>)}
         <button type="button" onClick={this.handleClick}>Next</button>
         {(index >= 4) && <Ranking />}
       </div>
