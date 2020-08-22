@@ -13,7 +13,7 @@ class App extends React.Component {
     await this.props.getToken();
   }
 
-  tokenLocalStorage(){
+  tokenLocalStorage() {
     localStorage.setItem('token', this.props.token);
   }
 
@@ -23,7 +23,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-      {!isLogged && <Redirect to="/" />}
+        {!isLogged && <Redirect to="/" />}
         <header className="App-header">
           <Rotas />
         </header>
@@ -43,6 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.propTypes = {
   getToken: PropTypes.func.isRequired,
+  token: PropTypes.string,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,4 @@
-import { 
+import {
   REQUEST_QUESTIONS,
   REQUEST_QUESTIONS_SUCCESS,
 } from '../actions/actionQuestions';

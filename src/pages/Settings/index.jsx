@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 export class Settings extends Component {
   render() {
@@ -9,12 +10,12 @@ export class Settings extends Component {
     return (
       <div>
         <h1 data-testid="settings-title">Settings</h1>
-        <img src={gravatar} alt='gravatar' />
+        <img src={gravatar} alt="gravatar" />
         <h3>Nome: {name}</h3>
         <h3>Email: {email}</h3>
         <h3>
           Token:
-          {!token && "Nao definida"}
+          {!token && 'Nao definida'}
           {token && token}
         </h3>
       </div>
@@ -25,5 +26,12 @@ export class Settings extends Component {
 const mapStateToProps = (state) => ({
   login: state.loginReducer,
 });
+
+Settings.propTypes = {
+  login: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  gravatar: PropTypes.string.isRequired,
+}
 
 export default connect(mapStateToProps)(Settings);

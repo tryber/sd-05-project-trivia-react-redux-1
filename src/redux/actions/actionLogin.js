@@ -1,4 +1,4 @@
-import hashMD5 from "../../services/md5";
+import hashMD5 from '../../services/md5';
 
 export const NAME = 'NAME';
 export const EMAIL = 'EMAIL';

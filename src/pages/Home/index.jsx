@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { dispatchQuestions } from "../../redux/actions/actionQuestions";
-import Header from "../../components/Header";
-import Questions from "../../components/Questions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { dispatchQuestions } from '../../redux/actions/actionQuestions';
+import Header from '../../components/Header';
+import Questions from '../../components/Questions';
 
 class Home extends Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class Home extends Component {
   render() {
     const { questions } = this.props;
     localStorage.setItem('questions', questions.results);
-    
+
     return (
       <div>
         <Header />
@@ -30,4 +31,9 @@ const mapDispatchToProps = (dispatch) => ({
   getQuestions: () => dispatch(dispatchQuestions()),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+Home.propTypes = {
+  questions: PropTypes.object.isRequired,
+  getQuestions: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

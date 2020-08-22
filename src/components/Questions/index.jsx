@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Ranking from '../../components/Ranking';
 import './style.css';
@@ -11,12 +12,11 @@ class Questions extends React.Component {
       time: 30,
       index: 0,
       respostas: [],
-    }
+    };
     this.handleClick = this.handleClick.bind(this);
     this.criarPerguntas = this.criarPerguntas.bind(this);
-
   }
-  
+
   handleClick() {
     const { index } = this.state;
     if (index <= 4) {
@@ -29,7 +29,7 @@ class Questions extends React.Component {
   criarPerguntas() {
     const { questions } = this.props;
     if(!questions.results) {
-      return <h1>Loading...</h1>
+      return <h1>Loading...</h1>;
     }
     const { index } = this.state;
 
@@ -38,9 +38,9 @@ class Questions extends React.Component {
     const perguntasCertas = {
       pergunta: questions.results[index].correct_answer,
       isCorreta: true,
-    }
+    };
 
-     const perguntasErradas = questions.results[index].incorrect_answers.map((pergunta) => ({
+    const perguntasErradas = questions.results[index].incorrect_answers.map((pergunta) => ({
       pergunta,
       isCorreta: false,
     }));
@@ -55,26 +55,30 @@ class Questions extends React.Component {
   render() {
     const { questions } = this.props;
     const { index } = this.state;
-    if(!questions.results) {
-      return <h1>Loading...</h1>
+    if (!questions.results) {
+      return <h1>Loading...</h1>;
     }
 
     const respostass = this.criarPerguntas();
 
-    return ( 
+    return (
       <div>
         <span data-testid="question-category">{questions.results[index].category}</span>
         <p data-testid="question-text">{questions.results[index].question}</p>
-        {respostass.map((question) => <button className={question.isCorreta === true? 'green-border':'red-border'}>{question.pergunta}</button>)}
+        {respostass.map((question) => <button>{question.pergunta}</button>)}
         <button type="button" onClick={this.handleClick}>Next</button>
         {(index >= 4) && <Ranking />}
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   questions: state.questionsReducer.questions,
 });
+
+Questions.propTypes = {
+  questions: PropTypes.object.isRequired,
+}
 
 export default connect(mapStateToProps)(Questions);

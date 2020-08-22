@@ -1,4 +1,4 @@
-import resolveQuestions from '../../services/apiQuestions'
+import resolveQuestions from '../../services/apiQuestions';
 
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_QUESTIONS_SUCCESS = 'REQUEST_QUESTIONS_SUCCESS';
