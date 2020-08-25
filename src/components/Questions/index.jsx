@@ -1,18 +1,18 @@
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import React from 'react';
-import PropTypes from 'prop-types';
-import resolveQuestion from '../../services/apiQuestions';
-import './style.css';
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import React from "react";
+import PropTypes from "prop-types";
+import resolveQuestion from "../../services/apiQuestions";
+import "./style.css";
 
 function classChoose(disabled, isCorreta) {
-  let classe = '';
+  let classe = "";
   if (disabled && isCorreta) {
-    classe = 'green-border';
+    classe = "green-border";
   } else if (disabled && !isCorreta) {
-    classe = 'red-border';
+    classe = "red-border";
   } else {
-    classe = '';
+    classe = "";
   }
   return classe;
 }
@@ -24,7 +24,7 @@ class Questions extends React.Component {
       time: 30,
       index: 0,
       disabled: false,
-      className: '',
+      className: "",
       respostaAPI: [],
     };
 
@@ -38,7 +38,7 @@ class Questions extends React.Component {
     resolveQuestion(token).then((data) =>
       this.setState({
         respostaAPI: data.results,
-      }),
+      })
     );
   }
 
@@ -74,7 +74,7 @@ class Questions extends React.Component {
         pergunta,
         isCorreta: false,
         index: indexs,
-      }),
+      })
     );
 
     const allQuestions = [...perguntasErradas, perguntasCertas];
@@ -84,7 +84,7 @@ class Questions extends React.Component {
 
   render() {
     let shuffledQuestions = [];
-    const { index, disabled, respostaAPI } = this.state;
+    const { index, disabled, respostaAPI, time } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
     if (respostaAPI.length > 0) shuffledQuestions = this.criarPerguntas();
     return (
@@ -95,21 +95,26 @@ class Questions extends React.Component {
         <p data-testid="question-text">{respostaAPI[index].question}</p>
         {shuffledQuestions.map((question) => (
           <button
-            key={Math.random(99999999)} type="button"
+            key={Math.random(99999999)}
+            type="button"
             data-testid={
               question.isCorreta
-                ? 'correct-answer'
+                ? "correct-answer"
                 : `wrong-answer-${question.index}`
             }
             className={classChoose(disabled, question.isCorreta)}
-            onClick={this.toggleClass} disabled={disabled}
+            onClick={this.toggleClass}
+            disabled={disabled}
           >
             {question.pergunta}
           </button>
         ))}
-        <button disabled={!disabled} type="button" onClick={this.handleClick}>
-          Next
-        </button>
+        {disabled && (
+          <button disabled={!disabled} type="button" onClick={this.handleClick}>
+            Next
+          </button>
+        )}
+        {time}
         {index >= 4 && <Redirect to="/ranking" />}
       </div>
     );
