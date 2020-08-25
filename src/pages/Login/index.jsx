@@ -11,12 +11,15 @@ import {
 import { resolverToken as token } from '../../redux/actions';
 
 class Login extends React.Component {
-
+  
+  componentDidMount() {
+    this.props.getToken()
+  }
+  
   playToToken() {
-    localStorage.setItem('token', this.props.token);
+    localStorage.setItem('token', this.props.token)
   }
   render() {
-    this.props.getToken();
     const { pName, pEmail } = this.props;
     return (
       <header className="app-header">

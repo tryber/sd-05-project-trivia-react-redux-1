@@ -1,6 +1,3 @@
-const token = localStorage.getItem('token');
-
-const API_QUESTIONS = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
 // function resolveQuestions() {
 //   return fetch(API_QUESTIONS)
@@ -9,9 +6,8 @@ const API_QUESTIONS = `https://opentdb.com/api.php?amount=5&token=${token}`;
 //   );
 // }
 // export default resolveQuestions;
-
-function resolveQuestion() {
-  const fetchAPI = fetch(API_QUESTIONS)
+function resolveQuestion(token) {
+  const fetchAPI = fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
     .then((resolve) => resolve.json());
   return fetchAPI;
 }
