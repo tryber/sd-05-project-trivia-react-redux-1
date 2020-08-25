@@ -38,7 +38,7 @@ class Questions extends React.Component {
     resolveQuestion(token).then((data) =>
       this.setState({
         respostaAPI: data.results,
-      })
+      }),
     );
   }
 
