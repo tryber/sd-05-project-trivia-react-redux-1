@@ -1,8 +1,8 @@
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
-import resolveQuestion from '../../services/apiQuestions';
 import PropTypes from 'prop-types';
+import resolveQuestion from '../../services/apiQuestions';
 import './style.css';
 
 function classChoose(disabled, isCorreta) {
@@ -38,7 +38,7 @@ class Questions extends React.Component {
     resolveQuestion(token).then((data) =>
       this.setState({
         respostaAPI: data.results,
-      })
+      }),
     );
   }
 
@@ -120,8 +120,8 @@ const mapStateToProps = (state) => ({
   token: state.tokenReducer.data.token,
 });
 
-Questions.propTypes ={
+Questions.propTypes = {
   token: PropTypes.string.isRequired,
-}
+};
 
 export default connect(mapStateToProps)(Questions);
