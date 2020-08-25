@@ -7,24 +7,24 @@ import './styles.css';
 import { actionNameInput, actionEmailInput, actionIsLogged } from '../../redux/actions/actionLogin';
 
 const Login = (props) => {
-  const { name, email } = props.login;
+  const { pName, pEmail } = props;
   return (
     <header className="app-header">
       <img src={logo} className="App-logo" alt="logo" />
       <h1 className="trivia-game">TRIVIA GAME</h1>
       <div className="box-login">
         <input
-          type="text" name="name" defaultValue={name} placeholder="Your name"
+          type="text" name="name" defaultValue={pName} placeholder="Your name"
           onChange={(e) => props.aNameI(e.target.value)} data-testid="input-player-name"
         />
         <input
-          type="text" name="email" placeholder="Your e-mail" defaultValue={email}
+          type="text" name="email" placeholder="Your e-mail" defaultValue={pEmail}
           onChange={(e) => props.aEmailI(e.target.value)} data-testid="input-gravatar-email"
         />
         <Link to="/home" onClick={() => props.isLogged(true)}>
           <button
             type="button"
-            disabled={email.length < 3 || !name}
+            disabled={pEmail.length < 3 || !pName}
             data-testid="btn-play"
           >
             Jogar
@@ -45,11 +45,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  login: state.loginReducer,
+  pName: state.loginReducer.name,
+  pEmail: state.loginReducer.email,
 });
 
 Login.propTypes = {
-  login: PropTypes.object,
   isLogged: PropTypes.func.isRequired,
   aNameI: PropTypes.func.isRequired,
   aEmailI: PropTypes.func.isRequired,

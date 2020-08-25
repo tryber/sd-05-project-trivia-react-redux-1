@@ -5,7 +5,7 @@ import './styles.css';
 
 class Header extends Component {
   render() {
-    const { name, gravatar } = this.props.login;
+    const { name, gravatar } = this.props;
     return (
       <div className="player-header-info">
         <div>
@@ -21,11 +21,11 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  login: state.loginReducer,
+  name: state.loginReducer.name,
+  gravatar: state.loginReducer.gravatar
 });
 
 Header.propTypes = {
-  login: PropTypes.object,
   name: PropTypes.string,
   gravatar: PropTypes.string,
 }

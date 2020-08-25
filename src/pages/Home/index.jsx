@@ -11,8 +11,6 @@ class Home extends Component {
   }
 
   render() {
-    const { questions } = this.props;
-    localStorage.setItem('questions', questions.results);
 
     return (
       <div>
@@ -32,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Home.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.object),
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   getQuestions: PropTypes.func.isRequired,
 };
 
