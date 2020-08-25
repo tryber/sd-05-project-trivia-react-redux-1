@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./style.css";
 import { Redirect } from "react-router-dom";
 import resolveQuestion from '../../services/apiQuestions';
@@ -12,6 +11,7 @@ class Questions extends React.Component {
       time: 30,
       index: 0,
       disabled: false,
+      className: '',
       respostaAPI: [],
     };
 
@@ -21,11 +21,11 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    resolveQuestion().then((data) =>
-    this.setState({
-      respostaAPI: data.results,
-    })
-    )
+    resolveQuestion()
+      .then((data) => 
+      this.setState({
+        respostaAPI:data,
+      }))
   }
 
   handleClick() {
@@ -51,11 +51,11 @@ class Questions extends React.Component {
     const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
     const perguntasCertas = {
-      pergunta: respostaAPI[index].correct_answer,
+      pergunta: respostaAPI.results[index].correct_answer,
       isCorreta: true,
     };
     
-    const perguntasErradas = respostaAPI[index].incorrect_answers.map(
+    const perguntasErradas = respostaAPI.results[index].incorrect_answers.map(
       (pergunta, index) => ({
         pergunta,
         isCorreta: false,
@@ -71,32 +71,27 @@ class Questions extends React.Component {
   render() {
     let shuffledQuestions = [];
     const { index, disabled, respostaAPI } = this.state;
-    if (respostaAPI == '') return <h1>Loading...</h1>;
-    if (respostaAPI.length > 0) {
+    if (!respostaAPI.results) return <h1>Loading...</h1>;
+    if (respostaAPI.results.length > 0) {
       shuffledQuestions = this.criarPerguntas();
     }
-    console.log(respostaAPI)
+
     return (
       <div>
         <span data-testid="question-category">
-          {respostaAPI[index].category}
+          {respostaAPI.results[index].category}
         </span>
-        <p data-testid="question-text">{respostaAPI[index].question}</p>
-        {shuffledQuestions.map((question) => (
+        <p data-testid="question-text">{respostaAPI.results[index].question}</p>
+        {shuffledQuestions.map((question, index) => (
           <button
+            key={index}
             type="button"
             data-testid={
               question.isCorreta
                 ? "correct-answer"
                 : `wrong-answer-${question.index}`
             }
-            className={
-              disabled
-                ? question.isCorreta
-                  ? "green-border"
-                  : "red-border"
-                : ""
-            }
+            className=''
             onClick={this.toggleClass}
             disabled={disabled}
           >
@@ -112,8 +107,6 @@ class Questions extends React.Component {
   }
 }
 
-Questions.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+
 
 export default Questions;

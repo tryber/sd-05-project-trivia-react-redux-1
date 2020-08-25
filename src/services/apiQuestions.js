@@ -11,8 +11,8 @@ const API_QUESTIONS = `https://opentdb.com/api.php?amount=5&token=${token}`;
 // export default resolveQuestions;
 
 function resolveQuestion() {
-  const fetchAPI = fetch(API_QUESTIONS,
-  ).then((resolve) => resolve.json());
+  const fetchAPI = fetch(API_QUESTIONS)
+    .then((resolve) => resolve.json());
   return fetchAPI;
 }
 
