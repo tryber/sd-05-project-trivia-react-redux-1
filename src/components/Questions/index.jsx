@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import './style.css';
 
 function classChoose(disabled, isCorreta) {
-  let classe = '';
+  let classe = "";
   if (disabled && isCorreta) {
-    classe = 'green-border';
-  } else if ( disabled && !isCorreta) {
-    classe = 'red-border';
+    classe = "green-border";
+  } else if (disabled && !isCorreta) {
+    classe = "red-border";
   } else {
-    classe = '';
+    classe = "";
   }
   return classe;
 }
@@ -23,7 +23,7 @@ class Questions extends React.Component {
       time: 30,
       index: 0,
       disabled: false,
-      className: '',
+      className: "",
       respostaAPI: [],
     };
 
@@ -34,54 +34,54 @@ class Questions extends React.Component {
 
   componentDidMount() {
     const { token } = this.props;
-    resolveQuestion(token)
-      .then((data) =>
+    resolveQuestion(token).then((data) =>
       this.setState({
         respostaAPI: data.results,
-      }));
+      })
+    );
+  }
+
+  handleClick() {
+    const { index, disabled } = this.state;
+    if (index < 4) {
+      this.setState({
+        index: index + 1,
+        disabled: !disabled,
+      });
     }
-    
-    handleClick() {
-      const { index, disabled } = this.state;
-      if (index < 4) {
-        this.setState({
-          index: index + 1,
-          disabled: !disabled,
-        });
-      }
-    }
-    
+  }
+
   toggleClass() {
     this.setState({
       disabled: true,
     });
   }
-  
+
   criarPerguntas() {
     const { respostaAPI } = this.state;
     const { index } = this.state;
-    
+
     const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-    
+
     const perguntasCertas = {
       pergunta: respostaAPI[index].correct_answer,
       isCorreta: true,
     };
-    
+
     const perguntasErradas = respostaAPI[index].incorrect_answers.map(
       (pergunta, indexs) => ({
         pergunta,
         isCorreta: false,
         index: indexs,
-      }),
-      );
-      
-      const allQuestions = [...perguntasErradas, perguntasCertas];
-      const respostas = shuffle(allQuestions);
-      return respostas;
-    }
-    
-    render() {
+      })
+    );
+
+    const allQuestions = [...perguntasErradas, perguntasCertas];
+    const respostas = shuffle(allQuestions);
+    return respostas;
+  }
+
+  render() {
     let shuffledQuestions = [];
     const { index, disabled, respostaAPI } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
@@ -94,13 +94,16 @@ class Questions extends React.Component {
         <p data-testid="question-text">{respostaAPI[index].question}</p>
         {shuffledQuestions.map((question) => (
           <button
-            key={Math.random(99999999)} type="button"
+            key={Math.random(99999999)}
+            type="button"
             data-testid={
               question.isCorreta
-                ? 'correct-answer'
+                ? "correct-answer"
                 : `wrong-answer-${question.index}`
             }
-            className={classChoose(disabled, question.isCorreta)} onClick={this.toggleClass} disabled={disabled}
+            className={classChoose(disabled, question.isCorreta)}
+            onClick={this.toggleClass}
+            disabled={disabled}
           >
             {question.pergunta}
           </button>
@@ -116,6 +119,6 @@ class Questions extends React.Component {
 
 const mapStateToProps = (state) => ({
   token: state.tokenReducer.data.token,
-})
+});
 
 export default connect(mapStateToProps)(Questions);

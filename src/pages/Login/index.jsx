@@ -11,13 +11,13 @@ import {
 import { resolverToken as token } from '../../redux/actions';
 
 class Login extends React.Component {
-  
+
   componentDidMount() {
-    this.props.getToken()
+    this.props.getToken();
   }
-  
+
   playToToken() {
-    localStorage.setItem('token', this.props.token)
+    localStorage.setItem('token', this.props.token);
   }
   render() {
     const { pName, pEmail } = this.props;
