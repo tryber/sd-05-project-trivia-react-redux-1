@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch) => ({
 Login.propTypes = {
   pName: PropTypes.string.isRequired,
   pEmail: PropTypes.string.isRequired,
-  toke: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
   aNameI: PropTypes.func.isRequired,
   aEmailI: PropTypes.func.isRequired,
   getToken: PropTypes.string.isRequired,

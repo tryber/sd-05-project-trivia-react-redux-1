@@ -72,7 +72,7 @@ class Questions extends React.Component {
     let shuffledQuestions = [];
     const { index, disabled, respostaAPI } = this.state;
     if (!respostaAPI.results) return <h1>Loading...</h1>;
-    if (respostaAPI.results.length > 0) { shuffledQuestions = this.criarPerguntas() }
+    if (respostaAPI.results.length > 0) shuffledQuestions = this.criarPerguntas();
 
     return (
       <div>
