@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import logo from "../../assets/images/logo.png";
-import "./styles.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import logo from '../../assets/images/logo.png';
+import './styles.css';
 import {
   actionNameInput,
   actionEmailInput,
-} from "../../redux/actions/actionLogin";
-import { resolverToken as token } from "../../redux/actions";
+} from '../../redux/actions/actionLogin';
+import { resolverToken as token } from '../../redux/actions';
 
 class Login extends React.Component {
 
@@ -24,26 +24,18 @@ class Login extends React.Component {
         <h1 className="trivia-game">TRIVIA GAME</h1>
         <div className="box-login">
           <input
-            type="text"
-            name="name"
-            defaultValue={pName}
-            placeholder="Your name"
+            type="text" name="name" defaultValue={pName} placeholder="Your name"
             onChange={(e) => this.props.aNameI(e.target.value)}
             data-testid="input-player-name"
           />
           <input
-            type="text"
-            name="email"
-            placeholder="Your e-mail"
-            defaultValue={pEmail}
+            type="text" name="email" placeholder="Your e-mail" defaultValue={pEmail}
             onChange={(e) => this.props.aEmailI(e.target.value)}
             data-testid="input-gravatar-email"
           />
           <Link to="/home" onClick={() => this.playToToken()}>
             <button
-              type="button"
-              disabled={pEmail.length < 3 || !pName}
-              data-testid="btn-play"
+              type="button" disabled={pEmail.length < 3 || !pName} data-testid="btn-play"
             >
               Jogar
             </button>
@@ -71,7 +63,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   pName: PropTypes.string.isRequired,
-  pEmail: PropTypes.func.isRequired,
+  pEmail: PropTypes.string.isRequired,
+  toke: PropTypes.string.isRequired,
+  aNameI: PropTypes.func.isRequired,
+  aEmailI: PropTypes.func.isRequired,
   getToken: PropTypes.string.isRequired,
 };
 

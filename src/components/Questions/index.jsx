@@ -1,7 +1,7 @@
-import React from "react";
-import "./style.css";
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
+import React from 'react';
 import resolveQuestion from '../../services/apiQuestions';
+import './style.css';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -22,10 +22,10 @@ class Questions extends React.Component {
 
   componentDidMount() {
     resolveQuestion()
-      .then((data) => 
+      .then((data) =>
       this.setState({
-        respostaAPI:data,
-      }))
+        respostaAPI: data,
+      }));
   }
 
   handleClick() {
@@ -54,13 +54,13 @@ class Questions extends React.Component {
       pergunta: respostaAPI.results[index].correct_answer,
       isCorreta: true,
     };
-    
+
     const perguntasErradas = respostaAPI.results[index].incorrect_answers.map(
-      (pergunta, index) => ({
+      (pergunta, indexs) => ({
         pergunta,
         isCorreta: false,
-        index,
-      })
+        index: indexs,
+      }),
     );
 
     const allQuestions = [...perguntasErradas, perguntasCertas];
@@ -72,9 +72,7 @@ class Questions extends React.Component {
     let shuffledQuestions = [];
     const { index, disabled, respostaAPI } = this.state;
     if (!respostaAPI.results) return <h1>Loading...</h1>;
-    if (respostaAPI.results.length > 0) {
-      shuffledQuestions = this.criarPerguntas();
-    }
+    if (respostaAPI.results.length > 0) { shuffledQuestions = this.criarPerguntas() }
 
     return (
       <div>
@@ -82,18 +80,15 @@ class Questions extends React.Component {
           {respostaAPI.results[index].category}
         </span>
         <p data-testid="question-text">{respostaAPI.results[index].question}</p>
-        {shuffledQuestions.map((question, index) => (
+        {shuffledQuestions.map((question) => (
           <button
-            key={index}
-            type="button"
+            key={Math.random(99999999)} type="button"
             data-testid={
               question.isCorreta
-                ? "correct-answer"
+                ? 'correct-answer'
                 : `wrong-answer-${question.index}`
             }
-            className=''
-            onClick={this.toggleClass}
-            disabled={disabled}
+            className="" onClick={this.toggleClass} disabled={disabled}
           >
             {question.pergunta}
           </button>
@@ -106,7 +101,5 @@ class Questions extends React.Component {
     );
   }
 }
-
-
 
 export default Questions;
