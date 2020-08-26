@@ -13,7 +13,6 @@ class Questions extends React.Component {
       index: 0,
       respostaAPI: [],
     };
-
   }
 
   componentDidMount() {
@@ -29,11 +28,10 @@ class Questions extends React.Component {
   render() {
     const { respostaAPI } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
-    
+
     return (
       <div>
         <Button respostaAPI={respostaAPI} />
-        
       </div>
     );
   }

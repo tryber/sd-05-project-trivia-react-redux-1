@@ -23,12 +23,13 @@ class Header extends Component {
 const mapStateToProps = (state) => ({
   name: state.loginReducer.name,
   gravatar: state.loginReducer.gravatar,
-  score: state.scoreReducer.score
+  score: state.scoreReducer.score,
 });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   gravatar: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getScore } from '../../redux/actions/actionScore';
-import placar from '../../services/scoreCalculation' ;
+import placar from '../../services/scoreCalculation';
 function classChoose(disabled, isCorreta) {
-  let classe = "";
+  let classe = '';
   if (disabled && isCorreta) {
-    classe = "green-border";
+    classe = 'green-border';
   } else if (disabled && !isCorreta) {
-    classe = "red-border";
+    classe = 'red-border';
   } else {
-    classe = "";
+    classe = '';
   }
   return classe;
 }
@@ -24,7 +25,7 @@ class Button extends Component {
       disabled: false,
       className: "",
       time: 30,
-      timer:null,
+      timer: null,
       score: 0,
     };
 
@@ -34,27 +35,31 @@ class Button extends Component {
     this.criarPerguntas = this.criarPerguntas.bind(this);
   }
 
-  componentDidMount() {
-    const timer = setInterval(this.timerCount, 1000);
+  stateFunc(timer) {
     this.setState({
       timer,
-    })
+    });
+  }
+ 
+  componentDidMount() {
+    const timer = setInterval(this.timerCount, 1000);
+    this.stateFunc(timer)
   }
 
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
-  
+
   timerCount() {
     const { timer, time } = this.state;
     if (time === 0) {
       clearInterval(timer);
       this.setState({
-        time:0,
-        disabled:true,
+        time: 0,
+        disabled: true,
       })
     } else {
-      this.setState({ time: time - 1});
+      this.setState({ time: time - 1 });
     }
   }
 
@@ -79,16 +84,16 @@ class Button extends Component {
 
     const allQuestions = [...perguntasErradas, perguntasCertas];
     const respostas = shuffle(allQuestions);
-    this.setState ({
-      randomize:false,
+    this.setState({
+      randomize: false,
       RQ: respostas,
-      diff: respostaAPI[index].difficulty
+      diff: respostaAPI[index].difficulty,
     });
     return respostas;
   }
 
   handleClick() {
-    const { index, timer } = this.state;
+    const { index } = this.state;
     if (index < 4) {
       this.setState({
         index: index + 1,
@@ -109,52 +114,47 @@ class Button extends Component {
       disabled: true,
     });
 
-    if(name === 'correta') {
+    if (name === 'correta') {
       setScore(placar(time, diff) + score);
       this.setState({
         score: placar(time, diff) + score,
-      })
-    };
+      });
+    }
   }
 
   render() {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;
-    const { disabled, index, time, RQ, randomize, score } = this.state;
+    const { disabled, index, time, RQ, randomize } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
     if (randomize) {
       shuffledQuestions = this.criarPerguntas();
-    } else {
-      shuffledQuestions = RQ;
-    }
-    
+    } else { shuffledQuestions = RQ };
     return (
       <div>
-        <span data-testid="question-category">
-          {respostaAPI[index].category}
-        </span>
+        <span data-testid="question-category"> {respostaAPI[index].category} </span>
         <p data-testid="question-text">{respostaAPI[index].question}</p>
         {shuffledQuestions.map((question) => (
           <button
-            key={Math.random(99999999)}
-            type="button"
+            key={Math.random(99999999)} type="button"
             name={question.isCorreta ? 'correta' : 'errada'}
             data-testid={
               question.isCorreta
-                ? "correct-answer"
+                ? 'correct-answer'
                 : `wrong-answer-${question.index}`
             }
-            className={classChoose(disabled, question.isCorreta)}
-            onClick={(e) =>this.toggleClass(e)}
-            disabled={disabled}
+            className={classChoose(disabled, question.isCorreta)} 
+            onClick={(e) => this.toggleClass(e)} disabled={disabled}
           >
             {question.pergunta}
           </button>
         ))}
         {disabled && (
-          <button disabled={!disabled} data-testid="btn-next" type="button" onClick={this.handleClick}>
-            {" "}
-            Next{" "}
+          <button disabled={!disabled} data-testid="btn-next" type="button"
+            onClick={this.handleClick}
+          >
+            {' '}
+            Next{' '}
           </button>
         )}
         {time}
@@ -165,7 +165,12 @@ class Button extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setScore: (e) => dispatch(getScore(e))
+  setScore: (e) => dispatch(getScore(e)),
 });
+
+Button.propTypes = {
+  respostaAPI: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setScore: PropTypes.func.isRequired,
+}
 
 export default connect(null, mapDispatchToProps)(Button);

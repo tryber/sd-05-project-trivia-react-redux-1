@@ -10,10 +10,10 @@ const scoreReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         score: action.payload,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default scoreReducer;
