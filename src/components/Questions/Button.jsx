@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getScore } from '../../redux/actions/actionScore';
+import placar from '../../services/scoreCalculation' ;
 function classChoose(disabled, isCorreta) {
   let classe = "";
   if (disabled && isCorreta) {
@@ -23,6 +25,7 @@ class Button extends Component {
       className: "",
       time: 30,
       timer:null,
+      score: 0,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -79,7 +82,8 @@ class Button extends Component {
     this.setState ({
       randomize:false,
       RQ: respostas,
-    })
+      diff: respostaAPI[index].difficulty
+    });
     return respostas;
   }
 
@@ -96,18 +100,27 @@ class Button extends Component {
     }
   }
 
-  toggleClass() {
-    const { timer } = this.state;
+  toggleClass(e) {
+    const { name } = e.target;
+    const { setScore } = this.props;
+    const { timer, time, diff, score } = this.state;
     clearInterval(timer);
     this.setState({
       disabled: true,
     });
+
+    if(name === 'correta') {
+      setScore(placar(time, diff) + score);
+      this.setState({
+        score: placar(time, diff) + score,
+      })
+    };
   }
 
   render() {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;
-    const { disabled, index, time, RQ, randomize } = this.state;
+    const { disabled, index, time, RQ, randomize, score } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
     if (randomize) {
       shuffledQuestions = this.criarPerguntas();
@@ -125,20 +138,21 @@ class Button extends Component {
           <button
             key={Math.random(99999999)}
             type="button"
+            name={question.isCorreta ? 'correta' : 'errada'}
             data-testid={
               question.isCorreta
                 ? "correct-answer"
                 : `wrong-answer-${question.index}`
             }
             className={classChoose(disabled, question.isCorreta)}
-            onClick={this.toggleClass}
+            onClick={(e) =>this.toggleClass(e)}
             disabled={disabled}
           >
             {question.pergunta}
           </button>
         ))}
         {disabled && (
-          <button disabled={!disabled} type="button" onClick={this.handleClick}>
+          <button disabled={!disabled} data-testid="btn-next" type="button" onClick={this.handleClick}>
             {" "}
             Next{" "}
           </button>
@@ -150,4 +164,8 @@ class Button extends Component {
   }
 }
 
-export default Button;
+const mapDispatchToProps = (dispatch) => ({
+  setScore: (e) => dispatch(getScore(e))
+});
+
+export default connect(null, mapDispatchToProps)(Button);
