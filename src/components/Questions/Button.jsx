@@ -126,7 +126,7 @@ class Button extends Component {
           email: pEmail,
           assertions: playerInfo.player.assertions + 1,
           score: setScore(placar(time, diff) + score),
-        }
+        },
       }
       localStorage.setItem('state', JSON.stringify(newState));
     }
@@ -178,6 +178,8 @@ const mapStateToProps = (state) => ({
 Button.propTypes = {
   respostaAPI: PropTypes.arrayOf(PropTypes.object).isRequired,
   setScore: PropTypes.func.isRequired,
+  pName: PropTypes.string.isRequired,
+  pEmail: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);
