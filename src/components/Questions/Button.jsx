@@ -113,7 +113,7 @@ class Button extends Component {
     this.setState({
       disabled: true,
     });
-    
+
     if (name === 'correta') {
       setScore(placar(time, diff) + score);
       this.setState({
@@ -121,12 +121,12 @@ class Button extends Component {
       });
     }
   }
-  
+
   render() {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;
     const { disabled, index, time, RQ, randomize } = this.state;
-    if (index > 4) return <Redirect to="/ranking" />
+    if (index > 4) return <Redirect to="/ranking" />;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
     if (randomize) { shuffledQuestions = this.criarPerguntas(); } else { shuffledQuestions = RQ; }
     return (

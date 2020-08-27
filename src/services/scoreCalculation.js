@@ -16,4 +16,4 @@ export default function scoreCalculation(time, dif) {
   return ((difValue * time) + 10);
 }
 
-//Função Criada por Rodrigo Batista e utilizado com sua autorização.
+// Função Criada por Rodrigo Batista e utilizado com sua autorização.
