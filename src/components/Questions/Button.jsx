@@ -131,7 +131,7 @@ class Button extends Component {
       localStorage.setItem('state', JSON.stringify(newState));
     }
   }
-  
+
   render() {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;

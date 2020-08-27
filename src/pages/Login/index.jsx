@@ -24,8 +24,8 @@ class Login extends React.Component {
         assertions: 0,
         score: 0,
         gravatarEmail: pEmail,
-      }
-    }
+      },
+    };
     localStorage.setItem('state', JSON.stringify(newPlayer));
     localStorage.setItem('token', this.props.token);
   }
