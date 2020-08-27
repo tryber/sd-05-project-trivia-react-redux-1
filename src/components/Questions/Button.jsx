@@ -136,7 +136,7 @@ class Button extends Component {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;
     const { disabled, index, time, RQ, randomize } = this.state;
-    if (index > 4) return <Redirect to="/ranking" />;
+    if (index > 4) return <Redirect to="/feedback" />;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
     if (randomize) { shuffledQuestions = this.criarPerguntas(); } else { shuffledQuestions = RQ; }
     return (

@@ -10,8 +10,8 @@ class Header extends Component {
       <div className="player-header-info">
         <div>
           <header className="player-info">
-            <h3 data-testid="header-player-name">Nome: {name}</h3>
-            <h3 data-testid="header-score">Score: {score} </h3>
+            <h3>Nome: <span data-testid="header-player-name">{name}</span></h3>
+            <h3>Score: <span data-testid="header-score">{score}</span></h3>
             <img data-testid="header-profile-picture" alt="gravatar" src={gravatar} />
           </header>
         </div>
