@@ -125,13 +125,13 @@ class Button extends Component {
           name: pName,
           email: pEmail,
           assertions: playerInfo.player.assertions + 1,
-          score: setScore(placar(time, diff) + score),
+          score: placar(time, diff) + score,
         },
       };
       localStorage.setItem('state', JSON.stringify(newState));
     }
   }
-
+  
   render() {
     let shuffledQuestions = [];
     const { respostaAPI } = this.props;
