@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getScore } from '../../redux/actions/actionScore';
 import placar from '../../services/scoreCalculation';
+
 function classChoose(disabled, isCorreta) {
   let classe = '';
   if (disabled && isCorreta) {
@@ -15,7 +16,6 @@ function classChoose(disabled, isCorreta) {
   }
   return classe;
 }
-
 class Button extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class Button extends Component {
       index: 0,
       randomize: true,
       disabled: false,
-      className: "",
+      className: '',
       time: 30,
       timer: null,
       score: 0,
@@ -35,19 +35,20 @@ class Button extends Component {
     this.criarPerguntas = this.criarPerguntas.bind(this);
   }
 
+  
+  componentDidMount() {
+    const timer = setInterval(this.timerCount, 1000);
+    this.stateFunc(timer);
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+  
   stateFunc(timer) {
     this.setState({
       timer,
     });
-  }
- 
-  componentDidMount() {
-    const timer = setInterval(this.timerCount, 1000);
-    this.stateFunc(timer)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
   }
 
   timerCount() {
@@ -57,7 +58,7 @@ class Button extends Component {
       this.setState({
         time: 0,
         disabled: true,
-      })
+      });
     } else {
       this.setState({ time: time - 1 });
     }
@@ -127,9 +128,7 @@ class Button extends Component {
     const { respostaAPI } = this.props;
     const { disabled, index, time, RQ, randomize } = this.state;
     if (respostaAPI.length < 1) return <h1>Loading...</h1>;
-    if (randomize) {
-      shuffledQuestions = this.criarPerguntas();
-    } else { shuffledQuestions = RQ };
+    if (randomize) { shuffledQuestions = this.criarPerguntas(); } else { shuffledQuestions = RQ; }
     return (
       <div>
         <span data-testid="question-category"> {respostaAPI[index].category} </span>
@@ -138,20 +137,16 @@ class Button extends Component {
           <button
             key={Math.random(99999999)} type="button"
             name={question.isCorreta ? 'correta' : 'errada'}
-            data-testid={
-              question.isCorreta
-                ? 'correct-answer'
-                : `wrong-answer-${question.index}`
-            }
-            className={classChoose(disabled, question.isCorreta)} 
+            data-testid={question.isCorreta ? 'correct-answer': `wrong-answer-${question.index}`}
+            className={classChoose(disabled, question.isCorreta)}
             onClick={(e) => this.toggleClass(e)} disabled={disabled}
           >
             {question.pergunta}
           </button>
         ))}
         {disabled && (
-          <button disabled={!disabled} data-testid="btn-next" type="button"
-            onClick={this.handleClick}
+          <button
+            disabled={!disabled} data-testid="btn-next" type="button" onClick={this.handleClick}
           >
             {' '}
             Next{' '}
@@ -171,6 +166,6 @@ const mapDispatchToProps = (dispatch) => ({
 Button.propTypes = {
   respostaAPI: PropTypes.arrayOf(PropTypes.object).isRequired,
   setScore: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mapDispatchToProps)(Button);
