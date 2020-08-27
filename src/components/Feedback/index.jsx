@@ -26,7 +26,7 @@ class Feedback extends Component {
       localStorage.setItem('ranking', JSON.stringify(rankingPlayer));
     }
   }
- 
+
   render() {
     const playerInfo = JSON.parse(localStorage.getItem('state'));
 
