@@ -10,11 +10,11 @@ class Ranking extends Component {
     const rankingPlayer = JSON.parse(localStorage.getItem('ranking'));
     return (
       <div>
-        <Header />
+        <h1 data-testid="ranking-title">Ranking</h1>
         {rankingPlayer.map((player, index) =>
           <div>
-            <span data-testid={`player-name-${index}`} >Name: <span>{player.name}</span></span>
-            <span>Score: <span>{player.score}</span></span>
+            <p>Name: <span data-testid={`player-name-${index}`}>{player.name}</span></p>
+            <p>Score: <span data-testid={`player-score-${index}`}>{player.score}</span></p>
             <img src={player.picture} alt="Player" />
           </div>
         )}

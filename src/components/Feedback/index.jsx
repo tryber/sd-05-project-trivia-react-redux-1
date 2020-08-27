@@ -16,6 +16,7 @@ class Feedback extends Component {
     }];
     if(oldRanking) {
       oldRanking.push(...rankingPlayer);
+      oldRanking.sort((x, y) => y.score - x.score);
       localStorage.setItem('ranking', JSON.stringify(oldRanking));
     } else {
       localStorage.setItem('ranking', JSON.stringify(rankingPlayer));
@@ -32,7 +33,7 @@ class Feedback extends Component {
       <div>
         <Header />
         {playerInfo.player.assertions < 3 && <p data-testid="feedback-text">Podia ser melhor...</p>}
-        {playerInfo.player.assertions > 3 && <p data-testid="feedback-text">Mandou bem!</p>}
+        {playerInfo.player.assertions >= 3 && <p data-testid="feedback-text">Mandou bem!</p>}
         <p>Score: <span data-testid="feedback-total-score">{playerInfo.player.score}</span></p>
         <p>
           Assertions:
