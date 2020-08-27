@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import Header from '../Header';
 import PropTypes from 'prop-types';
+import Header from '../Header';
 
+function clearPlayer() {
+  localStorage.removeItem('state');
+}
 class Feedback extends Component {
 
   componentDidMount() {
@@ -23,10 +26,7 @@ class Feedback extends Component {
       localStorage.setItem('ranking', JSON.stringify(rankingPlayer));
     }
   }
-  clearPlayer() {
-    localStorage.removeItem('state');
-  }
-
+ 
   render() {
     const playerInfo = JSON.parse(localStorage.getItem('state'));
 
@@ -43,7 +43,7 @@ class Feedback extends Component {
           </span>
         </p>
         <Link to="/">
-          <button data-testid="btn-play-again" onClick={this.clearPlayer}>Jogar Novamente</button>
+          <button data-testid="btn-play-again" onClick={clearPlayer}>Jogar Novamente</button>
         </Link>
         <Link to="/ranking">
           <button data-testid="btn-ranking">Ver Ranking</button>
@@ -59,6 +59,6 @@ const mapStateToProps = (state) => ({
 
 Feedback.propTypes = {
   gravatar: PropTypes.string.isRequired,
-}
+};
 
 export default connect(mapStateToProps)(Feedback);
