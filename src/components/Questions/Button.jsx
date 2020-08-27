@@ -106,8 +106,9 @@ class Button extends Component {
   }
 
   toggleClass(e) {
+    const { pName, pEmail, setScore } = this.props;
+    const playerInfo = JSON.parse(localStorage.getItem('state'));
     const { name } = e.target;
-    const { setScore } = this.props;
     const { timer, time, diff, score } = this.state;
     clearInterval(timer);
     this.setState({
@@ -119,6 +120,15 @@ class Button extends Component {
       this.setState({
         score: placar(time, diff) + score,
       });
+      const newState = {
+        player: {
+          name: pName,
+          email: pEmail,
+          assertions: playerInfo.player.assertions + 1,
+          score: setScore(placar(time, diff) + score),
+        }
+      }
+      localStorage.setItem('state', JSON.stringify(newState));
     }
   }
 
@@ -160,9 +170,14 @@ const mapDispatchToProps = (dispatch) => ({
   setScore: (e) => dispatch(getScore(e)),
 });
 
+const mapStateToProps = (state) => ({
+  pName: state.loginReducer.name,
+  pEmail: state.loginReducer.email,
+});
+
 Button.propTypes = {
   respostaAPI: PropTypes.arrayOf(PropTypes.object).isRequired,
   setScore: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Button);
+export default connect(mapStateToProps, mapDispatchToProps)(Button);

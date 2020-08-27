@@ -17,6 +17,16 @@ class Login extends React.Component {
   }
 
   playToToken() {
+    const { pName, pEmail } = this.props;
+    const newPlayer = {
+      player: {
+        name: pName,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: pEmail,
+      }
+    }
+    localStorage.setItem('state', JSON.stringify(newPlayer));
     localStorage.setItem('token', this.props.token);
   }
   render() {
