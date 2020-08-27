@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import Header from '../Header';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import Header from '../Header';
+import PropTypes from 'prop-types';
 
 class Feedback extends Component {
-  
+
   componentDidMount() {
     const { gravatar } = this.props;
     const playerInfo = JSON.parse(localStorage.getItem('state'));
@@ -14,7 +15,7 @@ class Feedback extends Component {
       score: playerInfo.player.score,
       picture: gravatar,
     }];
-    if(oldRanking) {
+    if (oldRanking) {
       oldRanking.push(...rankingPlayer);
       oldRanking.sort((x, y) => y.score - x.score);
       localStorage.setItem('ranking', JSON.stringify(oldRanking));
@@ -28,7 +29,7 @@ class Feedback extends Component {
 
   render() {
     const playerInfo = JSON.parse(localStorage.getItem('state'));
-    
+
     return (
       <div>
         <Header />
@@ -41,10 +42,10 @@ class Feedback extends Component {
             {playerInfo.player.assertions}
           </span>
         </p>
-        <Link to ="/">
+        <Link to="/">
           <button data-testid="btn-play-again" onClick={this.clearPlayer}>Jogar Novamente</button>
         </Link>
-        <Link to ="/ranking">
+        <Link to="/ranking">
           <button data-testid="btn-ranking">Ver Ranking</button>
         </Link>
       </div>
@@ -54,6 +55,10 @@ class Feedback extends Component {
 
 const mapStateToProps = (state) => ({
   gravatar: state.loginReducer.gravatar,
-})
+});
+
+Feedback.propTypes = {
+  gravatar: PropTypes.string.isRequired,
+}
 
 export default connect(mapStateToProps)(Feedback);

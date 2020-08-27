@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Header from '../Header';
 import { Link } from 'react-router-dom';
 
+function clearPlayer() {
+  localStorage.removeItem('state');
+}
 class Ranking extends Component {
-  clearPlayer() {
-    localStorage.removeItem('state');
-  }
   render() {
     const rankingPlayer = JSON.parse(localStorage.getItem('ranking'));
     return (
@@ -16,9 +15,9 @@ class Ranking extends Component {
             <p>Name: <span data-testid={`player-name-${index}`}>{player.name}</span></p>
             <p>Score: <span data-testid={`player-score-${index}`}>{player.score}</span></p>
             <img src={player.picture} alt="Player" />
-          </div>
+          </div>,
         )}
-        <Link to="/" onClick={this.clearPlayer}>
+        <Link to="/" onClick={clearPlayer}>
           <button data-testid="btn-go-home">Voltar ao Login</button>
         </Link>
       </div>
