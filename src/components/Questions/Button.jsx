@@ -127,7 +127,7 @@ class Button extends Component {
           assertions: playerInfo.player.assertions + 1,
           score: setScore(placar(time, diff) + score),
         },
-      }
+      };
       localStorage.setItem('state', JSON.stringify(newState));
     }
   }
