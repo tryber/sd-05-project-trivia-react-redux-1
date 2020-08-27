@@ -35,16 +35,15 @@ class Button extends Component {
     this.criarPerguntas = this.criarPerguntas.bind(this);
   }
 
-  
   componentDidMount() {
     const timer = setInterval(this.timerCount, 1000);
     this.stateFunc(timer);
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
-  
+
   stateFunc(timer) {
     this.setState({
       timer,
@@ -137,12 +136,10 @@ class Button extends Component {
           <button
             key={Math.random(99999999)} type="button"
             name={question.isCorreta ? 'correta' : 'errada'}
-            data-testid={question.isCorreta ? 'correct-answer': `wrong-answer-${question.index}`}
+            data-testid={question.isCorreta ? 'correct-answer' : `wrong-answer-${question.index}`}
             className={classChoose(disabled, question.isCorreta)}
             onClick={(e) => this.toggleClass(e)} disabled={disabled}
-          >
-            {question.pergunta}
-          </button>
+          > {question.pergunta} </button>
         ))}
         {disabled && (
           <button
